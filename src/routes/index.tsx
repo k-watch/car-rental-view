@@ -1,9 +1,7 @@
-import React from 'react';
-
 const Router = () => {
   return (
     <div>
-      <div>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+      <div>라우터</div>
     </div>
   );
 };

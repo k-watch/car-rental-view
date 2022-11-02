@@ -1,7 +1,6 @@
-import React from 'react';
+import Router from 'routes';
 import { ThemeProvider } from 'styled-components';
-import Theme from './styles/theme';
-import Router from './Router';
+import Theme from 'styles/theme';
 
 const App = () => {
   return (
