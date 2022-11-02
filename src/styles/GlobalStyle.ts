@@ -4,15 +4,24 @@ import reset from 'styled-reset';
 const GlobalStyle = createGlobalStyle`
   ${reset}
   * {
-    box-sizing: border-box;
+   box-sizing:border-box;
+   outline:none;
+   border:none;
   }
+
+  #root, html, body {
+   height: 100%;
+  }
+
   a {
   color: inherit;
   text-decoration: none;
   }
+
   li {
   list-style: none;
   }
+  
   button{
     background: none;
     border: none;

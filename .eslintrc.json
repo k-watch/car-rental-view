@@ -23,13 +23,13 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "no-var": "error", // var 금지
-    "no-multiple-empty-lines": "error", // 여러 줄 공백 금지
-    "no-console": ["warn", { "allow": ["warn", "error", "info"] }], // console.log() 금지
-    "eqeqeq": "error", // 일치 연산자 사용 필수
-    "dot-notation": "error", // 가능하다면 dot notation 사용
-    "linebreak-style": 0, // CRLF 에러
-    "react/function-component-definition": 0, // 함수형 컴포넌트 화살표함수사용 가능
+    "no-var": "error",
+    "no-multiple-empty-lines": "error",
+    "no-console": ["warn", { "allow": ["warn", "error", "info"] }],
+    "eqeqeq": "error",
+    "dot-notation": "error",
+    "linebreak-style": 0,
+    "react/function-component-definition": 0,
     "comma-dangle": 0,
     "arrow-body-style": 0,
     "consistent-return": 0,
