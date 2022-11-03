@@ -1,8 +1,10 @@
 import getCarList from 'api/car/car';
+import Loading from 'components/common/Loading';
 import { useCarState } from 'modules/context/CarContext';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
+import { absoluteCenter, flexBox } from 'styles/mixin';
 import { CarInterface } from 'types/api';
 import CarItem from './CarItem';
 
@@ -42,29 +44,40 @@ const CarList = () => {
     }
   }, [segment, data]);
 
-  if (isLoading) return <>로딩중</>;
+  if (isLoading) return <Loading />;
   if (error) {
     return <>에러</>;
   }
 
   return (
     <div>
-      <Wrap>
-        <ul>
-          {list &&
-            list.map((car) => (
+      <S.Wrap>
+        {list.length > 0 ? (
+          <ul>
+            {list.map((car) => (
               <li key={car.id}>
                 <CarItem {...car} />
               </li>
             ))}
-        </ul>
-      </Wrap>
+          </ul>
+        ) : (
+          <S.NoData>차량이 없습니다.</S.NoData>
+        )}
+      </S.Wrap>
     </div>
   );
 };
 
 export default CarList;
 
-const Wrap = styled.div`
-  overflow: auto;
-`;
+const S = {
+  Wrap: styled.div`
+    overflow: auto;
+  `,
+
+  NoData: styled.li`
+    ${flexBox()}
+    ${absoluteCenter()}
+		font-weight: bold;
+  `,
+};
