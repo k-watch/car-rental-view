@@ -11,7 +11,7 @@ import { API_URL } from 'types/enum';
 import CarItem from './CarItem';
 
 const CarList = () => {
-  const { carList } = useCarState();
+  const { carList, segment } = useCarState();
 
   const dispatch = useCarDispatch();
 
@@ -40,7 +40,8 @@ const CarList = () => {
         {carList &&
           carList.map((car) => (
             <li key={car.id}>
-              <CarItem {...car} />
+              {segment === 'ALL' && <CarItem {...car} />}
+              {segment === car.attribute.segment && <CarItem {...car} />}
             </li>
           ))}
       </Wrap>
@@ -51,7 +52,6 @@ const CarList = () => {
 export default CarList;
 
 const Wrap = styled.ul`
-  display: block;
   height: 400px;
   overflow: auto;
 
