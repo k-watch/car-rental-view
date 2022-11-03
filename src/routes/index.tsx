@@ -6,6 +6,7 @@ import {
 import Layout from 'components/common/Layout';
 import { NAVIGATE_URL } from 'types/enum';
 import MainPage from 'pages/MainPage';
+import CarDetailPage from 'pages/CarDetailPage';
 
 const Router = () => {
   return (
@@ -13,6 +14,7 @@ const Router = () => {
       <Routes>
         <Route element={<Layout />}>
           <Route path={NAVIGATE_URL.MAIN} element={<MainPage />} />
+          <Route path={NAVIGATE_URL.DETAIL} element={<CarDetailPage />} />
         </Route>
         {/* <Route path="*" element={<Navigate replace to="/" />} /> */}
       </Routes>

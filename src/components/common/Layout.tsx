@@ -1,4 +1,3 @@
-import CarNavigator from 'components/car/CarNavigator';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import { absoluteCenter } from 'styles/mixin';
@@ -6,7 +5,6 @@ import { absoluteCenter } from 'styles/mixin';
 const Layout = () => {
   return (
     <S.Wrap>
-      <CarNavigator />
       <Outlet />
     </S.Wrap>
   );

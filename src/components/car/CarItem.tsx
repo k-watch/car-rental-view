@@ -1,10 +1,13 @@
-import { SEGMENT, FUEL_TYPE } from 'types/enum';
 import { CarInterface } from 'types/api';
+import { useNavigate } from 'react-router-dom';
+import { SEGMENT, FUEL_TYPE } from 'types/enum';
 import Img from 'components/common/Img';
 
 const CarItem = (car: CarInterface) => {
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <div role="presentation" onClick={() => navigate(`/${car.id}`)}>
       <div>{car.attribute.brand}</div>
       <div>{car.attribute.name}</div>
       <div>{SEGMENT[car.attribute.segment]}</div>

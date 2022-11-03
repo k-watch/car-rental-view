@@ -22,4 +22,10 @@ export interface CarInterface {
       description: string;
     }
   ];
+  additionalProducts: [
+    {
+      name: string;
+      amount: number;
+    }
+  ];
 }

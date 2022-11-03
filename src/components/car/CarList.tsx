@@ -18,9 +18,7 @@ const CarList = () => {
   const { isLoading, data, error } = useFetch<CarInterface[]>(API_URL.CAR_LIST);
 
   useEffect(() => {
-    return () => {
-      dispatch({ type: CAR_ACTION_TYPE.INIT_CAR_LIST, carList: [] });
-    };
+    dispatch({ type: CAR_ACTION_TYPE.INIT_CAR_LIST });
   }, []);
 
   useEffect(() => {

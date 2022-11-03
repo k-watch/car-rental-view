@@ -4,7 +4,12 @@ export const API_URL = {
 
 export const NAVIGATE_URL = {
   MAIN: '/',
-  CONTENT: '/:carId',
+  DETAIL: '/:carId',
+} as const;
+
+export const TITLE_TEXT = {
+  MAIN: '전체차량',
+  DETAIL: '차량상세',
 } as const;
 
 export const SEGMENT = {
@@ -22,5 +27,6 @@ export const FUEL_TYPE = {
 } as const;
 
 export type ApiUrlType = typeof API_URL[keyof typeof API_URL];
+export type TitleTextType = typeof TITLE_TEXT[keyof typeof TITLE_TEXT];
 export type SegmentType = keyof typeof SEGMENT;
 export type FuelType = keyof typeof FUEL_TYPE;

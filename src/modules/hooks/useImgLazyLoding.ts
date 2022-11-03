@@ -1,11 +1,11 @@
 import { useRef, useState, useEffect } from 'react';
 
-interface Props {
+interface ImageLazyLoadingProps {
   options?: IntersectionObserverInit;
   lazy?: boolean;
 }
 
-const useImgLazyLoding = ({ options, lazy }: Props) => {
+const useImgLazyLoding = ({ options, lazy }: ImageLazyLoadingProps) => {
   const elementRef = useRef<HTMLImageElement>();
   const [isVisible, setIsVisible] = useState(false);
   const [isLoaded, setIsLoaded] = useState(!lazy);
