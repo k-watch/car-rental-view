@@ -8,6 +8,7 @@ import { CarInterface } from 'types/api';
 import { SEGMENT, FUEL_TYPE } from 'types/enum';
 import { getAmountPattern } from 'lib/common';
 import Loading from 'components/common/Loading';
+import MetaTag from 'lib/MetaTag';
 
 const options = {
   month: 'long',
@@ -52,6 +53,7 @@ const CarDetail = () => {
     <S.Wrap>
       {car && (
         <div>
+          <MetaTag {...car} />
           <S.Img>
             <Img
               width={300}
