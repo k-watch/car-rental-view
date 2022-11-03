@@ -1,6 +1,12 @@
-import { useCarDispatch, useCarState } from 'modules/context/CarContext';
+import Img from 'components/common/Img';
+import {
+  CAR_ACTION_TYPE,
+  useCarDispatch,
+  useCarState,
+} from 'modules/context/CarContext';
 import useFetch from 'modules/hooks/useQuery';
 import { useEffect } from 'react';
+import styled from 'styled-components';
 import { CarInterface } from 'types/api';
 import { API_URL } from 'types/enum';
 
@@ -13,13 +19,13 @@ const CarList = () => {
 
   useEffect(() => {
     return () => {
-      dispatch({ type: 'INIT_CAR_LIST', carList: [] });
+      dispatch({ type: CAR_ACTION_TYPE.INIT_CAR_LIST, carList: [] });
     };
   }, []);
 
   useEffect(() => {
     if (data) {
-      dispatch({ type: 'SET_CAR_LIST', carList: data });
+      dispatch({ type: CAR_ACTION_TYPE.SET_CAR_LIST, carList: data });
     }
   }, [dispatch, data]);
 
@@ -30,7 +36,7 @@ const CarList = () => {
 
   return (
     <div>
-      <ul>
+      <Wrap>
         {carList &&
           carList.map((car) => (
             <li key={car.id}>
@@ -40,17 +46,27 @@ const CarList = () => {
               <div>{car.attribute.fuelType}</div>
               <div>{car.amount}</div>
               <div>{car.createdAt}</div>
-              <img
-                width={100}
-                height={100}
+              <Img
+                width={130}
+                height="100%"
                 src={car.attribute.imageUrl}
                 alt={car.attribute.name}
+                lazy
               />
             </li>
           ))}
-      </ul>
+      </Wrap>
     </div>
   );
 };
 
 export default CarList;
+
+const Wrap = styled.ul`
+  height: 400px;
+  overflow: auto;
+
+  li {
+    border: 1px solid black;
+  }
+`;
