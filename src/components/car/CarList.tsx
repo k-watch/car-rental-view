@@ -67,8 +67,4 @@ export default CarList;
 
 const Wrap = styled.div`
   overflow: auto;
-
-  /* ul::after {
-    clear: both;
-  } */
 `;

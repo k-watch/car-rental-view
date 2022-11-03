@@ -11,21 +11,21 @@ const CarNavigator = () => {
 
   return (
     <S.Wrap>
-      <button type="button" onClick={() => onClick('ALL')}>
+      <S.Button type="button" onClick={() => onClick('ALL')}>
         {SEGMENT.ALL}
-      </button>
-      <button type="button" onClick={() => onClick('E')}>
+      </S.Button>
+      <S.Button type="button" onClick={() => onClick('E')}>
         {SEGMENT.E}
-      </button>
-      <button type="button" onClick={() => onClick('D')}>
+      </S.Button>
+      <S.Button type="button" onClick={() => onClick('D')}>
         {SEGMENT.D}
-      </button>
-      <button type="button" onClick={() => onClick('C')}>
+      </S.Button>
+      <S.Button type="button" onClick={() => onClick('C')}>
         {SEGMENT.C}
-      </button>
-      <button type="button" onClick={() => onClick('SUV')}>
+      </S.Button>
+      <S.Button type="button" onClick={() => onClick('SUV')}>
         {SEGMENT.SUV}
-      </button>
+      </S.Button>
     </S.Wrap>
   );
 };
@@ -34,9 +34,23 @@ export default CarNavigator;
 
 const S = {
   Wrap: styled.div`
-    display: block;
-
+    padding: 5px 10px;
     border-top: 1px solid ${({ theme }) => theme.colors.black};
     border-bottom: 1px solid ${({ theme }) => theme.colors.black};
+  `,
+
+  Button: styled.button`
+    margin-right: 5px;
+    padding: 3px 12px;
+    background-color: ${({ theme }) => theme.colors.grey};
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    color: ${({ theme }) => theme.colors.black};
+
+    :hover {
+      background-color: ${({ theme }) => theme.colors.black};
+      color: white;
+    }
   `,
 };
