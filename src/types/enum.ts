@@ -8,6 +8,7 @@ export const NAVIGATE_URL = {
 } as const;
 
 export const SEGMENT = {
+  ALL: '전체',
   C: '소형',
   D: '중형',
   E: '대형',
