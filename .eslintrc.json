@@ -46,7 +46,7 @@
     "arrow-parens": 0,
     "camelcase": 0,
     "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": ["warning"],
+    "@typescript-eslint/no-use-before-define": "off",
     "react/destructuring-assignment": [0, "always"],
     "react-hooks/exhaustive-deps": "off"
   }
