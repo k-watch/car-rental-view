@@ -1,10 +1,12 @@
+import CarNavigator from 'components/car/CarNavigator';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
-import { absoluteCenter, flexBox } from 'styles/mixin';
+import { absoluteCenter } from 'styles/mixin';
 
 const Layout = () => {
   return (
     <S.Wrap>
+      <CarNavigator />
       <Outlet />
     </S.Wrap>
   );
@@ -14,10 +16,9 @@ export default Layout;
 
 const S = {
   Wrap: styled.div`
-    ${flexBox()}
     ${absoluteCenter}
 
-		min-width: 360px;
+    min-width: 360px;
     max-width: 450px;
     height: 100vh;
 

@@ -51,6 +51,7 @@ const CarList = () => {
 export default CarList;
 
 const Wrap = styled.ul`
+  display: block;
   height: 400px;
   overflow: auto;
 
