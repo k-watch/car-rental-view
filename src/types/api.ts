@@ -1,3 +1,5 @@
+import { SegmentType, FuelType } from './enum';
+
 export interface CarInterface {
   id: number;
   startDate: string;
@@ -5,8 +7,8 @@ export interface CarInterface {
   attribute: {
     brand: string;
     name: string;
-    segment: string;
-    fuelType: string;
+    segment: SegmentType;
+    fuelType: FuelType;
     imageUrl: string;
   };
   amount: number;
