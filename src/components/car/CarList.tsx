@@ -1,31 +1,46 @@
-import {
-  CAR_ACTION_TYPE,
-  useCarDispatch,
-  useCarState,
-} from 'modules/context/CarContext';
-import useFetch from 'modules/hooks/useQuery';
-import { useEffect } from 'react';
+import getCarList from 'api/car/car';
+import { useCarState } from 'modules/context/CarContext';
+import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { CarInterface } from 'types/api';
-import { API_URL } from 'types/enum';
 import CarItem from './CarItem';
 
 const CarList = () => {
-  const { carList, segment } = useCarState();
+  const { segment } = useCarState();
+  const [list, setList] = useState<CarInterface[]>([]);
 
-  const dispatch = useCarDispatch();
-
-  const { isLoading, data, error } = useFetch<CarInterface[]>(API_URL.CAR_LIST);
+  const { data, isLoading, error, refetch } = useQuery<CarInterface[], Error>(
+    'getCarList',
+    getCarList,
+    {
+      enabled: false,
+    }
+  );
 
   useEffect(() => {
-    dispatch({ type: CAR_ACTION_TYPE.INIT_CAR_LIST });
-  }, []);
+    if (segment) {
+      refetch();
+    }
+  }, [segment]);
+
+  const initList = () => {
+    const carList = (data as any).payload as CarInterface[];
+    if (segment === 'ALL') {
+      setList([...carList]);
+    } else {
+      const temp = carList.filter((car) =>
+        car.attribute.segment === segment ? car : false
+      );
+      setList([...temp]);
+    }
+  };
 
   useEffect(() => {
     if (data) {
-      dispatch({ type: CAR_ACTION_TYPE.SET_CAR_LIST, carList: data });
+      initList();
     }
-  }, [dispatch, data]);
+  }, [segment, data]);
 
   if (isLoading) return <>로딩중</>;
   if (error) {
@@ -35,13 +50,14 @@ const CarList = () => {
   return (
     <div>
       <Wrap>
-        {carList &&
-          carList.map((car) => (
-            <li key={car.id}>
-              {segment === 'ALL' && <CarItem {...car} />}
-              {segment === car.attribute.segment && <CarItem {...car} />}
-            </li>
-          ))}
+        <ul>
+          {list &&
+            list.map((car) => (
+              <li key={car.id}>
+                <CarItem {...car} />
+              </li>
+            ))}
+        </ul>
       </Wrap>
     </div>
   );
@@ -49,11 +65,10 @@ const CarList = () => {
 
 export default CarList;
 
-const Wrap = styled.ul`
-  height: 400px;
+const Wrap = styled.div`
   overflow: auto;
 
-  li {
-    border: 1px solid black;
-  }
+  /* ul::after {
+    clear: both;
+  } */
 `;
