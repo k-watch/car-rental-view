@@ -1,4 +1,3 @@
-import Img from 'components/common/Img';
 import {
   CAR_ACTION_TYPE,
   useCarDispatch,
@@ -9,6 +8,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { CarInterface } from 'types/api';
 import { API_URL } from 'types/enum';
+import CarItem from './CarItem';
 
 const CarList = () => {
   const { carList } = useCarState();
@@ -40,19 +40,7 @@ const CarList = () => {
         {carList &&
           carList.map((car) => (
             <li key={car.id}>
-              <div>{car.attribute.brand}</div>
-              <div>{car.attribute.name}</div>
-              <div>{car.attribute.segment}</div>
-              <div>{car.attribute.fuelType}</div>
-              <div>{car.amount}</div>
-              <div>{car.createdAt}</div>
-              <Img
-                width={130}
-                height="100%"
-                src={car.attribute.imageUrl}
-                alt={car.attribute.name}
-                lazy
-              />
+              <CarItem {...car} />
             </li>
           ))}
       </Wrap>
