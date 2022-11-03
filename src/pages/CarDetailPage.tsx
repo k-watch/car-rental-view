@@ -5,7 +5,7 @@ import CarDetail from 'components/car/CarDetail';
 const CarDetailPage = () => {
   return (
     <div>
-      <Header title={TITLE_TEXT.DETAIL} />
+      <Header title={TITLE_TEXT.DETAIL} isBack />
       <CarDetail />
     </div>
   );
