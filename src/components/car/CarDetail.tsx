@@ -34,6 +34,7 @@ const CarDetail = () => {
 
   useEffect(() => {
     if (data) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const carList = (data as any).payload as CarInterface[];
       carList.forEach((tempCar) => {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -83,6 +84,7 @@ const CarDetail = () => {
             <span>
               {`${new Date(car.startDate).toLocaleDateString(
                 'ko-KR',
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 options as any
               )}부터`}
             </span>

@@ -27,6 +27,7 @@ const CarList = () => {
   }, [segment]);
 
   const initList = () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const carList = (data as any).payload as CarInterface[];
     if (segment === 'ALL') {
       setList([...carList]);
