@@ -44,6 +44,10 @@
     "react/react-in-jsx-scope": 0,
     "object-curly-newline": 0,
     "arrow-parens": 0,
-    "camelcase": 0
+    "camelcase": 0,
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["warning"],
+    "react/destructuring-assignment": [0, "always"],
+    "react-hooks/exhaustive-deps": "off"
   }
 }
