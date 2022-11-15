@@ -7,7 +7,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 
-import GlobalStyle from '@src/styles/globalStyle';
+import GlobalStyle from '@src/styles/GlobalStyle';
 import Theme from '@src/styles/theme';
 import { CarProvider } from '@src/modules/context/CarContext';
 
