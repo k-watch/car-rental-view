@@ -4,6 +4,7 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: ['interview.platdev.net'],
+    unoptimized: true,
   },
 };
 
