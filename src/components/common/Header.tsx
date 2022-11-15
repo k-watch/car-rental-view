@@ -1,7 +1,8 @@
-import { useNavigate } from 'react-router';
-import { TitleTextType } from 'types/enum';
-import { AiOutlineArrowLeft } from 'react-icons/ai';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
+
+import { NAVIGATE_URL, TitleTextType } from '@src/types/enum';
 
 interface HeaderProps {
   isBack?: boolean;
@@ -9,12 +10,15 @@ interface HeaderProps {
 }
 
 const Header = ({ title, isBack = false }: HeaderProps) => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <S.Wrap>
       {isBack && (
-        <span role="presentation" onClick={() => navigate(-1)}>
+        <span
+          role="presentation"
+          onClick={() => router.push(NAVIGATE_URL.MAIN)}
+        >
           <AiOutlineArrowLeft />
         </span>
       )}

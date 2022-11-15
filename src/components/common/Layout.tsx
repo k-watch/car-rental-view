@@ -1,24 +1,26 @@
-import { Outlet } from 'react-router-dom';
+import React from 'react';
 import styled from 'styled-components';
-import { absoluteCenter } from 'styles/mixin';
 
-const Layout = () => {
-  return (
-    <S.Wrap>
-      <Outlet />
-    </S.Wrap>
-  );
+import { absoluteCenter } from '@src/styles/mixin';
+
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Layout = ({ children }: LayoutProps) => {
+  return <S.Wrap>{children}</S.Wrap>;
 };
 
 export default Layout;
 
 const S = {
   Wrap: styled.div`
-    ${absoluteCenter}
+    ${absoluteCenter()}
 
-    min-width: 360px;
     max-width: 450px;
-    height: 100vh;
+    width: 100%;
+    min-width: 360px;
+    height: 100%;
 
     border-left: 1px solid ${({ theme }) => theme.colors.black};
     border-right: 1px solid ${({ theme }) => theme.colors.black};

@@ -1,64 +1,31 @@
-import getCarList from 'api/car/car';
-import Img from 'components/common/Img';
-import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import { useParams } from 'react-router';
 import styled from 'styled-components';
-import { CarInterface } from 'types/api';
-import { SEGMENT, FUEL_TYPE } from 'types/enum';
-import { getAmountPattern } from 'lib/common';
-import Loading from 'components/common/Loading';
-import MetaTag from 'lib/MetaTag';
 
-const options = {
-  month: 'long',
-  day: 'numeric',
-  weekday: 'long',
-};
+import useCarDetail from './hooks/useCarDetail';
+import Loading from '../common/Loading';
+import MetaTag from '@src/utils/common/MetaTag';
+import { FUEL_TYPE, SEGMENT } from '@src/types/enum';
+import { getAmountPattern, toLocaleDateKo } from '@src/utils/common';
+import Img from '../common/Img';
 
 const CarDetail = () => {
-  const [car, setCar] = useState<CarInterface>();
-  const { carId } = useParams();
-
-  const { data, isLoading, error, refetch } = useQuery<CarInterface[], Error>(
-    'getCarList',
-    getCarList,
-    {
-      enabled: false,
-    }
-  );
-
-  useEffect(() => {
-    if (carId) refetch();
-  }, [carId]);
-
-  useEffect(() => {
-    if (data) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const carList = (data as any).payload as CarInterface[];
-      carList.forEach((tempCar) => {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        if (tempCar.id.toString() === carId!) {
-          setCar(tempCar);
-        }
-      });
-    }
-  }, [data]);
+  const { car, isLoading } = useCarDetail();
 
   if (isLoading) return <Loading />;
-  if (error) {
-    return <>에러</>;
-  }
 
   return (
     <S.Wrap>
       {car && (
         <div>
-          <MetaTag {...car} />
+          <MetaTag
+            title={`${car.attribute.brand} ${car.attribute.name}`}
+            description={`월 ${car.amount} 원`}
+            imgSrc={car.attribute.imageUrl}
+            url="https://watch-carrental.netlify.app"
+          />
           <S.Img>
             <Img
               width={300}
-              height="100%"
+              height={200}
               src={car.attribute.imageUrl}
               alt={car.attribute.name}
               lazy
@@ -81,24 +48,23 @@ const CarDetail = () => {
           </S.ValueWrap>
           <S.ValueWrap>
             <span className="title">이용 가능일</span>
-            <span>
-              {`${new Date(car.startDate).toLocaleDateString(
-                'ko-KR',
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                options as any
-              )}부터`}
-            </span>
+            <span>{`${toLocaleDateKo(car.startDate)}부터`}</span>
           </S.ValueWrap>
-          <S.DivideWrap>보험</S.DivideWrap>
-          <S.ValueWrap>
-            <span className="title">{car.insurance[0].name}</span>
-            <span>{car.insurance[0].description}</span>
-          </S.ValueWrap>
-          <S.ValueWrap>
-            <span className="title">{car.insurance[1].name}</span>
-            <span>{car.insurance[1].description}</span>
-          </S.ValueWrap>
-          {car.additionalProducts.length > 0 && (
+          {car.insurance && (
+            <>
+              <S.DivideWrap>보험</S.DivideWrap>
+              <S.ValueWrap>
+                <span className="title">{car.insurance[0].name}</span>
+                <span>{car.insurance[0].description}</span>
+              </S.ValueWrap>
+
+              <S.ValueWrap>
+                <span className="title">{car.insurance[1].name}</span>
+                <span>{car.insurance[1].description}</span>
+              </S.ValueWrap>
+            </>
+          )}
+          {car.additionalProducts && (
             <div>
               <S.DivideWrap>추가상품</S.DivideWrap>
               <S.ValueWrap>

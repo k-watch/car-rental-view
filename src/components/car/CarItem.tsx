@@ -1,23 +1,19 @@
-import { CarInterface } from 'types/api';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
-import { SEGMENT, FUEL_TYPE } from 'types/enum';
-import Img from 'components/common/Img';
 import styled from 'styled-components';
-import { getAmountPattern, calDay } from 'lib/common';
+
+import { CarInterface } from '@src/types/api';
+import useCarItem from './hooks/useCarItem';
+import { getAmountPattern } from '@src/utils/common';
+import { SEGMENT, FUEL_TYPE } from '@src/types/enum';
+import Img from '../common/Img';
 
 const CarItem = (car: CarInterface) => {
-  const navigate = useNavigate();
-  const newCar = useRef(false);
-
-  useEffect(() => {
-    if (car) {
-      if (calDay(car.createdAt) <= 1) newCar.current = true;
-    }
-  }, [car]);
+  const { router, newCar } = useCarItem(car);
 
   return (
-    <S.Wrap role="presentation" onClick={() => navigate(`/${car.id}`)}>
+    <S.Wrap
+      role="presentation"
+      onClick={() => router.push(`/detail/${car.id}`)}
+    >
       <S.Content>
         <div className="title">
           <p>{car.attribute.brand}</p>
@@ -35,7 +31,7 @@ const CarItem = (car: CarInterface) => {
       <div className="imgWrap">
         <Img
           width={150}
-          height="100%"
+          height={100}
           src={car.attribute.imageUrl}
           alt={car.attribute.name}
           lazy

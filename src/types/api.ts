@@ -12,7 +12,7 @@ export interface CarInterface {
     imageUrl: string;
   };
   amount: number;
-  insurance: [
+  insurance?: [
     {
       name: string;
       description: string;
@@ -22,10 +22,14 @@ export interface CarInterface {
       description: string;
     }
   ];
-  additionalProducts: [
+  additionalProducts?: [
     {
       name: string;
       amount: number;
     }
   ];
+}
+
+export interface CarListResInterface {
+  data: { payload: CarInterface[] };
 }

@@ -1,5 +1,5 @@
 import React, { useReducer, useContext, createContext, Dispatch } from 'react';
-import { SegmentType } from 'types/enum';
+import { SegmentType } from '@src/types/enum';
 
 export const CAR_ACTION_TYPE = {
   SET_SEGMENT: 'SET_SEGMENT',

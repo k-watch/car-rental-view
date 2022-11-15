@@ -1,6 +1,25 @@
-import { CAR_ACTION_TYPE, useCarDispatch } from 'modules/context/CarContext';
-import { SEGMENT, SegmentType } from 'types/enum';
 import styled from 'styled-components';
+
+import {
+  CAR_ACTION_TYPE,
+  useCarDispatch,
+} from '@src/modules/context/CarContext';
+import { SegmentType } from '@src/types/enum';
+import { flexBox } from '@src/styles/mixin';
+
+interface carCategoryInterface {
+  id: number;
+  segment: SegmentType;
+  name: string;
+}
+
+const carCategory: carCategoryInterface[] = [
+  { id: 1, segment: 'ALL', name: '전체' },
+  { id: 2, segment: 'E', name: '대형' },
+  { id: 3, segment: 'D', name: '중형' },
+  { id: 4, segment: 'C', name: '소형' },
+  { id: 5, segment: 'SUV', name: 'SUV' },
+];
 
 const CarNavigator = () => {
   const dispatch = useCarDispatch();
@@ -11,21 +30,15 @@ const CarNavigator = () => {
 
   return (
     <S.Wrap>
-      <S.Button type="button" onClick={() => onClick('ALL')}>
-        {SEGMENT.ALL}
-      </S.Button>
-      <S.Button type="button" onClick={() => onClick('E')}>
-        {SEGMENT.E}
-      </S.Button>
-      <S.Button type="button" onClick={() => onClick('D')}>
-        {SEGMENT.D}
-      </S.Button>
-      <S.Button type="button" onClick={() => onClick('C')}>
-        {SEGMENT.C}
-      </S.Button>
-      <S.Button type="button" onClick={() => onClick('SUV')}>
-        {SEGMENT.SUV}
-      </S.Button>
+      <>
+        {carCategory.map((category) => (
+          <li key={category.id}>
+            <S.Button type="button" onClick={() => onClick(category.segment)}>
+              {category.name}
+            </S.Button>
+          </li>
+        ))}
+      </>
     </S.Wrap>
   );
 };
@@ -33,7 +46,8 @@ const CarNavigator = () => {
 export default CarNavigator;
 
 const S = {
-  Wrap: styled.div`
+  Wrap: styled.ul`
+    ${flexBox('row', 'flex-start')};
     padding: 5px 10px;
     border-top: 1px solid ${({ theme }) => theme.colors.black};
     border-bottom: 1px solid ${({ theme }) => theme.colors.black};
