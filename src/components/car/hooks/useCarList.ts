@@ -1,4 +1,3 @@
-import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
@@ -10,7 +9,7 @@ const useCarList = () => {
   const { segment } = useCarState();
   const [carList, setCarList] = useState<CarInterface[]>([]);
 
-  const { data, isLoading } = useQuery<CarInterface[] | undefined>(
+  const { data, isLoading } = useQuery<CarInterface[]>(
     ['getCarList'],
     getCarList
   );
@@ -37,17 +36,3 @@ const useCarList = () => {
 };
 
 export default useCarList;
-
-export const getServerSideProps = async () => {
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery<CarInterface[] | undefined>(
-    ['getCarList'],
-    getCarList
-  );
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
-};
