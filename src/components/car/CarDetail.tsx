@@ -1,34 +1,25 @@
 import styled from 'styled-components';
 
-import useCarDetail from './hooks/useCarDetail';
-import Loading from '../common/Loading';
-import MetaTag from '@src/utils/common/MetaTag';
 import { FUEL_TYPE, SEGMENT } from '@src/types/enum';
-import { getAmountPattern, toLocaleDateKo } from '@src/utils/common';
-import Img from '../common/Img';
+import {
+  getAmountPattern,
+  isValidArray,
+  toLocaleDateKo,
+} from '@src/utils/common';
+import Image from 'next/image';
+import { CarDetailProps } from 'pages/detail/[id]';
 
-const CarDetail = () => {
-  const { car, isLoading } = useCarDetail();
-
-  if (isLoading) return <Loading />;
-
+const CarDetail = ({ car }: CarDetailProps) => {
   return (
     <S.Wrap>
       {car && (
         <div>
-          <MetaTag
-            title={`${car.attribute.brand} ${car.attribute.name}`}
-            description={`월 ${car.amount} 원`}
-            imgSrc={car.attribute.imageUrl}
-            url="https://watch-carrental.netlify.app"
-          />
           <S.Img>
-            <Img
+            <Image
               width={300}
               height={200}
               src={car.attribute.imageUrl}
               alt={car.attribute.name}
-              lazy
             />
           </S.Img>
           <S.Title>
@@ -50,28 +41,27 @@ const CarDetail = () => {
             <span className="title">이용 가능일</span>
             <span>{`${toLocaleDateKo(car.startDate)}부터`}</span>
           </S.ValueWrap>
-          {car.insurance && (
+          {isValidArray(car.insurance) && (
             <>
               <S.DivideWrap>보험</S.DivideWrap>
-              <S.ValueWrap>
-                <span className="title">{car.insurance[0].name}</span>
-                <span>{car.insurance[0].description}</span>
-              </S.ValueWrap>
-
-              <S.ValueWrap>
-                <span className="title">{car.insurance[1].name}</span>
-                <span>{car.insurance[1].description}</span>
-              </S.ValueWrap>
+              {car.insurance?.map((insurance) => (
+                <S.ValueWrap key={insurance.name}>
+                  <span className="title">{insurance.name}</span>
+                  <span>{insurance.description}</span>
+                </S.ValueWrap>
+              ))}
             </>
           )}
-          {car.additionalProducts && (
-            <div>
+          {isValidArray(car.additionalProducts) && (
+            <>
               <S.DivideWrap>추가상품</S.DivideWrap>
-              <S.ValueWrap>
-                <span className="title">{car.additionalProducts[0].name}</span>
-                <span>{car.additionalProducts[0].amount}</span>
-              </S.ValueWrap>
-            </div>
+              {car.additionalProducts?.map((product) => (
+                <S.ValueWrap key={product.name}>
+                  <span className="title">{product.name}</span>
+                  <span>{product.amount}</span>
+                </S.ValueWrap>
+              ))}
+            </>
           )}
         </div>
       )}

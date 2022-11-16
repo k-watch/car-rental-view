@@ -12,7 +12,16 @@ import Theme from '@src/styles/theme';
 import { CarProvider } from '@src/modules/context/CarContext';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [qeuryClient] = useState(() => new QueryClient());
+  const [qeuryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
+        },
+      })
+  );
 
   return (
     <>

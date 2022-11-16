@@ -11,7 +11,7 @@ const useCarList = () => {
   const [carList, setCarList] = useState<CarInterface[]>([]);
 
   const { data, isLoading } = useQuery<CarInterface[] | undefined>(
-    ['carList'],
+    ['getCarList'],
     getCarList
   );
 

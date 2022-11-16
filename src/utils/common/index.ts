@@ -23,3 +23,9 @@ export const toLocaleDateKo = (date: string) => {
     options as Intl.DateTimeFormatOptions
   );
 };
+
+export const isValidArray = <T>(target: Array<T> | undefined) => {
+  if (!target) return false;
+
+  return target.length > 0;
+};
