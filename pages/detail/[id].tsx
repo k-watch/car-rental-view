@@ -1,6 +1,11 @@
 import { GetStaticPropsContext } from 'next';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
+import {
+  CAR_ACTION_TYPE,
+  useCarDispatch,
+} from '@src/modules/context/CarContext';
 import Layout from '@src/components/common/Layout';
 import Header from '@src/components/common/Header';
 import { TITLE_TEXT } from '@src/types/enum';
@@ -10,12 +15,18 @@ import { CarInterface } from '@src/types/api';
 import { getCarList } from '@src/api/car';
 
 export interface CarDetailProps {
-  car: CarInterface | undefined;
+  car: CarInterface;
 }
 
 const CarDetailPage = ({ car }: CarDetailProps) => {
   const router = useRouter();
   const { id: carId } = router.query;
+
+  const dispatch = useCarDispatch();
+
+  useEffect(() => {
+    dispatch({ type: CAR_ACTION_TYPE.SET_CAR, car });
+  }, [car, dispatch]);
 
   return (
     <>
@@ -27,7 +38,7 @@ const CarDetailPage = ({ car }: CarDetailProps) => {
       />
       <Layout>
         <Header title={TITLE_TEXT.DETAIL} isBack />
-        <CarDetail car={car} />
+        <CarDetail />
       </Layout>
     </>
   );
@@ -43,13 +54,19 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  const carId = params?.id;
-  const payload = (await getCarList()) as CarInterface[];
-  const car = payload.filter((carInfo) => carInfo.id.toString() === carId);
+  try {
+    const carId = params?.id;
+    const payload = (await getCarList()) as CarInterface[];
+    const car = payload.filter((carInfo) => carInfo.id.toString() === carId);
 
-  return {
-    props: {
-      car: car[0],
-    },
-  };
+    return {
+      props: {
+        car: car[0],
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
 };

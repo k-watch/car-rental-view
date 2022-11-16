@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import useCarDetail from './hooks/useCarDetail';
 import { FUEL_TYPE, SEGMENT } from '@src/types/enum';
 import {
   getAmountPattern,
@@ -7,9 +8,10 @@ import {
   toLocaleDateKo,
 } from '@src/utils/common';
 import Image from 'next/image';
-import { CarDetailProps } from 'pages/detail/[id]';
 
-const CarDetail = ({ car }: CarDetailProps) => {
+const CarDetail = () => {
+  const { car } = useCarDetail();
+
   return (
     <S.Wrap>
       {car && (

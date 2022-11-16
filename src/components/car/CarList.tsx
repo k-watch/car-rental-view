@@ -4,12 +4,9 @@ import useCarList from './hooks/useCarList';
 import CarItem from './CarItem';
 
 import { absoluteCenter, flexBox } from '@src/styles/mixin';
-import Loading from '../common/Loading';
 
 const CarList = () => {
-  const { carList, isLoading } = useCarList();
-
-  if (isLoading) return <Loading />;
+  const { carList } = useCarList();
 
   return (
     <div>

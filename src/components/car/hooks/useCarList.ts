@@ -1,18 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 
 import { useCarState } from '@src/modules/context/CarContext';
 import { CarInterface } from '@src/types/api';
-import { getCarList } from '@src/api/car';
 
 const useCarList = () => {
-  const { segment } = useCarState();
+  const { segment, carList: data } = useCarState();
   const [carList, setCarList] = useState<CarInterface[]>([]);
-
-  const { data, isLoading } = useQuery<CarInterface[]>(
-    ['getCarList'],
-    getCarList
-  );
 
   useEffect(() => {
     if (data) {
@@ -32,7 +25,7 @@ const useCarList = () => {
     }
   }, [segment, data]);
 
-  return { carList, isLoading };
+  return { carList };
 };
 
 export default useCarList;

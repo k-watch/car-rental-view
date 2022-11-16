@@ -1,12 +1,26 @@
-import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { DefaultSeo } from 'next-seo';
 
-import MainPage from './MainPage';
-import { DEFAULT_SEO } from '@src/types/enum';
 import { CarInterface } from '@src/types/api';
+import {
+  CAR_ACTION_TYPE,
+  useCarDispatch,
+} from '@src/modules/context/CarContext';
 import { getCarList } from '@src/api/car';
+import { DEFAULT_SEO } from '@src/types/enum';
+import MainPage from './MainPage';
 
-const Home = () => {
+interface HomeProps {
+  payload: CarInterface[];
+}
+
+const Home = ({ payload: carList }: HomeProps) => {
+  const dispatch = useCarDispatch();
+
+  useEffect(() => {
+    dispatch({ type: CAR_ACTION_TYPE.SET_CAR_LIST, carList });
+  }, [carList, dispatch]);
+
   return (
     <>
       <DefaultSeo {...DEFAULT_SEO} />
@@ -17,16 +31,18 @@ const Home = () => {
 
 export default Home;
 
-export const getServerSideProps = async () => {
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery<CarInterface[] | undefined>(
-    ['getCarList'],
-    getCarList
-  );
+export const getStaticProps = async () => {
+  try {
+    const payload = (await getCarList()) as CarInterface[];
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
+    return {
+      props: {
+        payload,
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
 };
