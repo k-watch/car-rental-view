@@ -3,8 +3,13 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['interview.platdev.net'],
-    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'interview.platdev.net',
+        pathname: '/**',
+      },
+    ],
   },
 };
 

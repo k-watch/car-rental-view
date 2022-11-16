@@ -4,7 +4,7 @@ import { CarInterface } from '@src/types/api';
 import useCarItem from './hooks/useCarItem';
 import { getAmountPattern } from '@src/utils/common';
 import { SEGMENT, FUEL_TYPE } from '@src/types/enum';
-import Img from '../common/Img';
+import Image from 'next/image';
 
 const CarItem = (car: CarInterface) => {
   const { router, newCar } = useCarItem(car);
@@ -29,12 +29,11 @@ const CarItem = (car: CarInterface) => {
       </S.Content>
 
       <div className="imgWrap">
-        <Img
+        <Image
           width={150}
           height={100}
           src={car.attribute.imageUrl}
           alt={car.attribute.name}
-          lazy
         />
         {newCar && <div className="newCar">신규</div>}
       </div>
