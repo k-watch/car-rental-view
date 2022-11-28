@@ -39,7 +39,7 @@ TypeScript / Next.js / Axios / styled-components
  
 ## ✔ 구현 방법
  ### 각 페이지 SSG 구현
-<img src="https://user-images.githubusercontent.com/30553624/204260154-eda5e3da-57fb-46f1-9698-b4d315e12e74.png" width="60%"/>
+<img src="https://user-images.githubusercontent.com/30553624/204260154-eda5e3da-57fb-46f1-9698-b4d315e12e74.png" width="40%"/>
 
 - TTV 를 줄이기 위해 각 페이지를 SSG 구현했습니다.사용자에게 빠르게 정적 페이지를 보여줘 기다리는 시간을 최소화했습니다.
   https://github.com/k-watch/car-rental-view/blob/d0aa5afad8e6baf39cc9a1f53512f4ff2e0dcabf/pages/detail/%5Bid%5D.tsx#L56-L72
@@ -56,7 +56,7 @@ TypeScript / Next.js / Axios / styled-components
 
 ### next-seo 를 이용한 SEO 구현
 
- <img src="https://user-images.githubusercontent.com/30553624/204261438-991c4d28-98ad-43af-b569-c090842e02c9.png" width="50%"/>
+ <img src="https://user-images.githubusercontent.com/30553624/204261438-991c4d28-98ad-43af-b569-c090842e02c9.png" width="30%"/>
 
 - 최초 CSR 로 해당프로젝트를 구현했을 때 SEO를 구현하기 위해 pre-rendering 을 하려면 react-snap 설치 외 방법이 마땅치 않았습니다. 따라서 Next.js 로 마이그레이션하여 SEO를 구현했습니다.
   https://github.com/k-watch/car-rental-view/blob/d0aa5afad8e6baf39cc9a1f53512f4ff2e0dcabf/src/utils/common/MetaTag.tsx#L10-L31
